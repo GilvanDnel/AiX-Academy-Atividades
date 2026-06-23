@@ -1,0 +1,175 @@
+\documentclass[12pt]{scrreprt}
+\usepackage{listings}
+\usepackage{underscore}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[brazilian]{babel}
+\usepackage[bookmarks=true]{hyperref}
+\usepackage{float} % Pacote para forçar a posição da imagem com [H]
+\usepackage{fancyhdr} % Pacote para rodapés customizados
+\usepackage{lastpage} % Pacote para contar o total de páginas
+
+% ==========================================
+% CONFIGURAÇÃO DO RODAPÉ (FancyHdr)
+% ==========================================
+\pagestyle{fancy}
+\fancyhf{} % Limpa cabeçalhos e rodapés padrão
+\renewcommand{\headrulewidth}{0pt} % Remove linha do cabeçalho
+
+% Configuração para páginas normais
+\fancyfoot[L]{Aluno: Gilvan Daniel da Silva \\ Documento: PDD -- Portal Fake}
+\fancyfoot[R]{Página \thepage\ de \pageref{LastPage}}
+
+% Forçar o rodapé nas páginas de início de capítulo (estilo plain)
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    \fancyfoot[L]{Aluno: Gilvan Daniel da Silva \\ Documento: PDD -- Portal Fake}
+    \fancyfoot[R]{Página \thepage\ de \pageref{LastPage}}
+}
+
+\hypersetup{
+    bookmarks=false,    % show bookmarks bar?
+    pdftitle={PDD - Portal Fake},    % title
+    pdfauthor={Gilvan Daniel da Silva},                     % author
+    pdfsubject={PDD - Portal Fake},                        % subject of the document
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=blue,       % color of internal links
+    citecolor=black,       % color of links to bibliography
+    filecolor=black,        % color of file links
+    urlcolor=purple,        % color of external links
+    linktoc=page            % only page is linked
+}
+\def\myversion{1.0 }
+
+\begin{document}
+
+% ==========================================
+% 1. CAPA
+% ==========================================
+\begin{titlepage}
+\begin{flushright}
+    \rule{16cm}{5pt}\vskip1cm
+    \begin{bfseries}
+        \Large{[Nome da Instituição]}\\
+        \vspace{0.5cm}
+        \Large{Disciplina: Técnicas de Hyper Automation}\\
+        \vspace{1.5cm}
+        \Huge{PDD -- Portal Fake}\\
+        \vspace{1.5cm}
+        \LARGE{Versão \myversion}\\
+        \vspace{1.5cm}
+        Aluno: Gilvan Daniel da Silva\\
+        \vspace{0.5cm}
+        Professor: Moisés Levy\\
+        \vspace{0.5cm}
+        Semana: 2\\
+        \vspace{1.5cm}
+        Data: \today\\
+    \end{bfseries}
+\end{flushright}
+\end{titlepage}
+
+% ==========================================
+% 2. SUMÁRIO
+% ==========================================
+\tableofcontents
+\clearpage
+
+% ==========================================
+% 3. CORPO DO DOCUMENTO
+% ==========================================
+\chapter{Introdução}
+
+\section{Objetivo do Processo}
+O Portal Fake faz registro de pessoas, armazena dados, é um CRUD básico mas funcional e de extrema importância para qualquer empresa. A empresa que o usa contém em seu corpo de colaboradores, usuários que atualmente realizam em torno de 250 cadastros por semana, visando tanto a melhoria de atividades atuais como melhorias para atividades futuras, resolvi implantar técnicas de hyper automação nesse serviço, o resultado esperado é triplicarmos a quantidade de registros mensais, diminuição nas tarefas repetitivas. O objetivo esperado é o aumento da produtividade.
+
+\section{Escopo do Processo}
+O processo de registros começa no campo Cadastrar usuário e termina em finalizar cadastro.
+
+\section{Responsável pelo processo}
+Usuários responsáveis por realizar o cadastro de pessoas.
+
+\chapter{Mapeamento do Processo}
+
+\section{Descrição do processo atual (AS-IS)}
+O processo é manual e segue o seguinte padrão:
+\begin{enumerate}
+    \item O usuário acessa o Portal Fake
+    \item Clica em Novo Cadastro
+    \item Preenche os dados
+    \item Clica em Salvar
+    \item O sistema valida as informações
+    \item O cadastro é armazenado
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{portal.png}
+    \caption{Fluxograma do Processo Atual (AS-IS)}
+    \label{fig:processo_atual}
+\end{figure}
+
+\section{Processo futuro (TO-BE)}
+Após mapeamento das funcionalidades e requisitos tanto para o sucesso quanto para a falha na realização dos processos do sistema, é possível visualizar melhorias a serem implementadas, entre elas:
+
+Automatizar o processo de cadastro desde a importação de dados, preenchimento de dados, validação de CPF, e até mesmo proteção física dos colaboradores ao evitar tarefas repetitivas, o que muitas das vezes gera passivos, afastamentos, erros humanos devido o cansaço. Todos esses benefícios através de RPA que identifica no domínio do portal fake, os ids dos botões, e os preenche com os campos de um csv.
+
+Para o tratamento de erros, a criação de logs para registro de um cpf não que não é encontrado/inválido, e evitando assim que o processo seja interrompido ou até mesmo que se perca o registro de cpfs inválidos.
+
+\chapter{Métricas e Regras}
+
+\section{Volume do Processo}
+Centenas de vezes.
+
+\section{Frequência do Processo}
+Como está agora é possível que semanalmente, a empresa consiga realizar em média 250 cadastros de pessoas, o que gera em torno de 1000 cadastros por mês.
+
+\section{Regras de negócio}
+\begin{itemize}
+    \item \textbf{Nome:} Obrigatório
+    \item \textbf{CPF:} Obrigatório ter 11 números e não deve se repetir
+    \item \textbf{E-mail:} Deve ser válido
+\end{itemize}
+
+\chapter{Requisitos do Processo}
+
+\section{Entradas do Processo}
+\begin{itemize}
+    \item Nome
+    \item Sobrenome
+    \item CPF
+    \item E-mail
+    \item Telefone
+    \item Endereço
+\end{itemize}
+
+\section{Saídas do Processo}
+Salva o registro.
+
+\section{Exceções e Erros}
+\begin{itemize}
+    \item Logs de erro: CPF inválido
+    \item CPF duplicado
+    \item E-mail inválido
+    \item Campos vazios
+\end{itemize}
+
+\chapter{Análise de Viabilidade}
+
+\section{Viabilidade da Automação}
+Após levantamento concluí-se que o projeto é viável.
+
+\section{ROI (Retorno sobre investimento)}
+\begin{itemize}
+    \item Aumenta a produtividade em até 3x ou mais
+    \item Diminui erro humano
+    \item Possibilita ganho de tempo para executar outros processos
+    \item Torna processos padronizados
+    \item Reduz o retrabalho
+    \item Reduz o desgaste do colaborador
+    \item Reduz riscos de afastamento por DORT
+\end{itemize}
+
+\end{document}
